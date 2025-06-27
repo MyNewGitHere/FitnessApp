@@ -11,6 +11,9 @@ import BottomNavigation from './components/BottomNavigation';
 import { ProgressProvider } from './components/ProgressContext';
 import './App.css';
 
+// Debug logging
+console.log('App.jsx loaded - HashRouter should be active');
+
 // Utility function to clear all data (for testing)
 const clearAllData = () => {
   localStorage.removeItem('workoutAppData');
