@@ -5,7 +5,7 @@ import ProgressCalendar from './ProgressCalendar';
 import AchievementBadges from './AchievementBadges';
 import './ProgressPage.css';
 
-export default function ProgressPage() {
+export default function ProgressPage({ userData }) {
   const { getTimeBasedProgress } = useProgress();
   const [timeFrame, setTimeFrame] = useState('today');
   
@@ -63,10 +63,19 @@ export default function ProgressPage() {
 
   const labels = getStatLabels();
 
+  // Get user's first name or use default greeting
+  const getGreeting = () => {
+    if (userData && userData.name && userData.name.trim()) {
+      const firstName = userData.name.trim().split(' ')[0];
+      return `Progress Report: ${firstName} 📊`;
+    }
+    return 'Progress Report: Warrior 📊';
+  };
+
   return (
     <div className="progress-page">
       <div className="progress-page-header">
-        <h1 className="progress-page-title">Progress Tracker</h1>
+        <h1 className="progress-page-title">{getGreeting()}</h1>
         <p className="progress-page-subtitle">Track your fitness journey and celebrate achievements</p>
       </div>
 
@@ -76,7 +85,8 @@ export default function ProgressPage() {
       {/* Time-based Progress Tracking */}
       <div className="time-progress-section">
         <div className="time-progress-header">
-          <h3 className="time-progress-title">Progress Overview</h3>
+          <h3 className="time-progress-title" 
+        >Progress Overview</h3>
           <div className="time-frame-selector">
             {timeFrameOptions.map((option) => (
               <button

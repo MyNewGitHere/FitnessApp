@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 import './HomeScreen.css';
 import { workoutData } from '../WorkoutData.js';
 import { useProgress } from './ProgressContext';
@@ -14,13 +13,13 @@ import luffyRestImg from '../assets/luffy-rest.png';
 import shanksRestImg from '../assets/shanks-rest.png';
 import erenFullbodyImg from '../assets/eren-fullbody.png';
 
-const HomeScreen = ({ userData }) => {
-  const navigate = useNavigate();
+const HomeScreen = ({ userData, setCurrentPage, setWorkoutDay,setPath }) => {
+  // const navigate = useNavigate();
   const { getTodayProgress } = useProgress();
 
   // Get current day
   const currentDay = new Date().toLocaleDateString('en-US', { weekday: 'long' });
-  
+
   // Get user's first name or use default greeting
   const getGreeting = () => {
     if (userData && userData.name && userData.name.trim()) {
@@ -99,13 +98,13 @@ const HomeScreen = ({ userData }) => {
   const stats = getUserStats();
 
   // Handle navigation
-  const handleStartWorkout = () => {
-    navigate(`/workout/${currentDay.toLowerCase()}`);
-  };
+  // const handleStartWorkout = () => {
+  //   navigate(`/workout/${currentDay.toLowerCase()}`);
+  // };
 
-  const handleNavigateTo = (path) => {
-    navigate(path);
-  };
+  // const handleNavigateTo = (path) => {
+  //   navigate(path);
+  // };
 
   return (
     <div className="home-screen">
@@ -113,7 +112,7 @@ const HomeScreen = ({ userData }) => {
       <div className="greeting-section">
         <h1>{getGreeting()}</h1>
         <p className="welcome-text">Your epic training journey continues!</p>
-        <div className="anime-quote" style={{background:'transparent'}}>
+        <div className="anime-quote" style={{ background: 'transparent' }}>
           <p>"The difference between the impossible and the possible lies in determination."</p>
         </div>
       </div>
@@ -124,7 +123,7 @@ const HomeScreen = ({ userData }) => {
           <h2>Today's Mission</h2>
           <span className="workout-day">{currentDay}</span>
         </div>
-        <div 
+        <div
           className="workout-card-content"
           style={{ backgroundImage: `url(${getWorkoutImage()})` }}
         >
@@ -133,7 +132,11 @@ const HomeScreen = ({ userData }) => {
             <h3>{getTodaysWorkoutTitle()}</h3>
             <p>{todaysExercises.length} challenges await</p>
           </div>
-          <button className="start-workout-btn anime-btn glow-effect" onClick={handleStartWorkout}>
+          <button className="start-workout-btn anime-btn glow-effect" onClick={() => {
+            setWorkoutDay(currentDay);
+            setCurrentPage('workout-detail');
+            setPath('home')
+          }}>
             <span className="btn-text">BEGIN TRAINING</span>
             <span className="btn-icon">⚡</span>
           </button>
@@ -141,7 +144,7 @@ const HomeScreen = ({ userData }) => {
       </div>
 
       {/* Progress Stats */}
-      <div className="progress-section" style={{background:'transparent'}}>
+      <div className="progress-section" style={{ background: 'transparent' }}>
         <h2>Your Warrior Stats</h2>
         <div className="stats-grid">
           <div className="stat-card">

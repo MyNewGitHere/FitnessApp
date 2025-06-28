@@ -170,24 +170,10 @@ const ProfilePage = ({ userData, onUpdateUser }) => {
   // Handle save profile
   const handleSaveProfile = () => {
     if (validateForm()) {
-      // Update localStorage
-      const savedData = localStorage.getItem('workoutAppData');
-      let appData = savedData ? JSON.parse(savedData) : {};
-      
-      // Update user data
-      appData.user = {
-        ...appData.user,
-        ...editForm
-      };
-      
-      // Save back to localStorage
-      localStorage.setItem('workoutAppData', JSON.stringify(appData));
-      
       // Call parent update function if provided
       if (onUpdateUser) {
         onUpdateUser(editForm);
       }
-      
       setIsEditing(false);
       setErrors({});
     }
@@ -208,7 +194,9 @@ const ProfilePage = ({ userData, onUpdateUser }) => {
 
   // Handle start editing
   const handleStartEdit = () => {
-    setIsEditing(true);
+    console.log(userData);
+    
+     setIsEditing(true);
   };
 
   return (
@@ -447,7 +435,7 @@ const ProfilePage = ({ userData, onUpdateUser }) => {
               <span className="unlock-date">Unlocked: 2024-02-10</span>
             </div>
           </div>
-          <div className="achievement-card locked">
+          {/* <div className="achievement-card locked">
             <div className="achievement-icon">💪</div>
             <div className="achievement-content">
               <h3>Strength Master</h3>
@@ -459,7 +447,7 @@ const ProfilePage = ({ userData, onUpdateUser }) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 

@@ -128,7 +128,7 @@ const DietPage = ({ userData }) => {
     return 'goal-start';
   };
 
-  // Get user stats (mock data for now)
+  // Get user stats (use real userData)
   const getUserStats = () => {
     return {
       dailyCalories: userData?.dailyCalories || 2000,

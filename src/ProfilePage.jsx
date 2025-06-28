@@ -110,7 +110,9 @@ const ProfilePage = ({ userData, onUpdateUser }) => {
   // Handle save profile
   const handleSaveProfile = () => {
     if (validateForm()) {
-      onUpdateUser(editForm);
+      if (onUpdateUser) {
+        onUpdateUser(editForm);
+      }
       setIsEditing(false);
       setErrors({});
     }

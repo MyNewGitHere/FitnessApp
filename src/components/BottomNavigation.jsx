@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+// import { useNavigate, useLocation } from 'react-router-dom';
 import './BottomNavigation.css';
 
 // Import new anime-themed navigation images
@@ -14,69 +14,45 @@ const isEmoji = (icon) => {
   return typeof icon === 'string' && icon.length <= 3 && !icon.endsWith('.png') && !icon.endsWith('.jpg') && !icon.endsWith('.svg');
 };
 
-const BottomNavigation = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
+const BottomNavigation = ({currentPage,setCurrentPage}) => {
+  // const navigate = useNavigate();
+  // const location = useLocation();
 
   const tabs = [
-    {
-      id: 'home',
-      label: 'Home',
-      icon: homeIcon,
-      path: '/'
-    },
-    {
-      id: 'workout',
-      label: 'Workout',
-      icon: workoutIcon,
-      path: '/workout'
-    },
-    {
-      id: 'diet',
-      label: 'GlowUp',
-      icon: glowUpIcon,
-      path: '/diet'
-    },
-    {
-      id: 'progress',
-      label: 'Progress',
-      icon: progressIcon,
-      path: '/progress'
-    },
-    {
-      id: 'profile',
-      label: 'Profile',
-      icon: profileIcon,
-      path: '/profile'
-    }
+    { id: 'home', label: 'Home', icon: homeIcon },
+    { id: 'workout', label: 'Workout', icon: workoutIcon },
+    { id: 'diet', label: 'GlowUp', icon: glowUpIcon },
+    { id: 'progress', label: 'Progress', icon: progressIcon },
+    { id: 'profile', label: 'Profile', icon: profileIcon },
   ];
 
   // Determine active tab based on current path
-  const getActiveTab = () => {
-    const currentPath = location.pathname;
-    if (currentPath === '/' || currentPath === '/home') return 'home';
-    if (currentPath.startsWith('/workout')) return 'workout';
-    if (currentPath.startsWith('/diet')) return 'diet';
-    if (currentPath.startsWith('/progress')) return 'progress';
-    if (currentPath.startsWith('/profile')) return 'profile';
-    return 'home'; // Default to home
-  };
+  // const getActiveTab = () => {
+  //   const currentPath = location.pathname;
+  //   if (currentPath === '/' || currentPath === '/home') return 'home';
+  //   if (currentPath.startsWith('/workout')) return 'workout';
+  //   if (currentPath.startsWith('/diet')) return 'diet';
+  //   if (currentPath.startsWith('/progress')) return 'progress';
+  //   if (currentPath.startsWith('/profile')) return 'profile';
+  //   return 'home'; // Default to home
+  // };
 
-  const activeTab = getActiveTab();
+  // const activeTab = getActiveTab();
 
-  const handleTabClick = (path) => {
-    console.log('BottomNavigation - handleTabClick called with path:', path);
-    console.log('BottomNavigation - Current location:', location.pathname);
-    navigate(path);
-  };
+  // const handleTabClick = (path) => {
+  //   console.log('BottomNavigation - handleTabClick called with path:', path);
+  //   console.log('BottomNavigation - Current location:', location.pathname);
+  //   navigate(path);
+  // };
 
   return (
     <div className="bottom-navigation">
       {tabs.map((tab) => (
         <button
           key={tab.id}
-          className={`nav-tab ${activeTab === tab.id ? 'active' : ''}`}
-          onClick={() => handleTabClick(tab.path)}
+          className={`nav-tab ${currentPage === tab.id ? 'active' : ''}`}
+
+          onClick={() => setCurrentPage(tab.id)}
         >
           <div className="nav-icon">
             {isEmoji(tab.icon) ? (

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+// import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useProgress } from './ProgressContext';
 import './WorkoutDetailPage.css';
 import { workoutData } from '../WorkoutData.js';
 
-const WorkoutDetailPage = () => {
-  const { day } = useParams();
-  const navigate = useNavigate();
-  const location = useLocation();
+const WorkoutDetailPage = ({day,setCurrentPage,path}) => {
+  // const { day } = useParams();
+  // const navigate = useNavigate();
+  // const location = useLocation();
   const { markExerciseAsDone, getTodayProgress, getTodayKey, initializeExercisesForDay, getDayProgress } = useProgress();
   const [completedExercises, setCompletedExercises] = useState(new Set());
   const [isLocked, setIsLocked] = useState(false);
@@ -108,26 +108,26 @@ const WorkoutDetailPage = () => {
   }, [selectedDay, dayData, warmupData, isRecoveryDay, getDayProgress, initializeExercisesForDay]);
 
   // Effect to handle navigation when location changes
-  useEffect(() => {
-    // Handle navigation changes
-  }, [location.pathname]);
+  // useEffect(() => {
+  //   // Handle navigation changes
+  // }, [location.pathname]);
 
   // Cleanup effect when component unmounts
-  useEffect(() => {
-    return () => {
-      // Cleanup when component unmounts
-    };
-  }, []);
+  // useEffect(() => {
+  //   return () => {
+  //     // Cleanup when component unmounts
+  //   };
+  // }, []);
 
   // Handle back navigation
-  const handleBack = () => {
-    navigate('/workout', { replace: true });
-  };
+  // const handleBack = () => {
+  //   navigate('/workout', { replace: true });
+  // };
 
-  if (!selectedDay) {
-    navigate('/workout', { replace: true });
-    return null;
-  }
+  // if (!selectedDay) {
+  //   navigate('/workout', { replace: true });
+  //   return null;
+  // }
 
   // Calculate total exercises (warmup + main workout) - only for non-recovery days
   const totalExercises = isRecoveryDay ? 0 : (warmupData?.exercises?.length || 0) + (dayData?.exercises?.length || 0);
@@ -274,7 +274,8 @@ const WorkoutDetailPage = () => {
     <div className="workout-detail-page">
       {/* Header */}
       <div className="workout-detail-header">
-        <button className="back-button" onClick={handleBack}>
+        <button className="back-button" onClick={()=>{setCurrentPage(path)
+        }}>
           <span className="back-arrow">←</span>
         </button>
         <div className="workout-detail-info">
